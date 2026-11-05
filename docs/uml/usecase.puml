@@ -1,0 +1,49 @@
+@startuml usecase
+left to right direction
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+
+actor "Пользователь" as U
+
+rectangle "CarLog" {
+  usecase "Добавить автомобиль"            as UC_AddCar
+  usecase "Выбрать активный автомобиль"    as UC_PickCar
+  usecase "Удалить автомобиль"             as UC_DelCar
+  usecase "Добавить заправку"              as UC_AddFuel
+  usecase "Добавить запись ТО"             as UC_AddMaint
+  usecase "Просмотреть историю записей"    as UC_History
+  usecase "Редактировать запись"           as UC_EditRec
+  usecase "Удалить запись"                 as UC_DelRec
+  usecase "Просмотреть текущий пробег"     as UC_Mileage
+  usecase "Просмотреть напоминания о ТО"   as UC_Remind
+  usecase "Просмотреть статистику"         as UC_Stats
+  usecase "Экспортировать историю в CSV"   as UC_Export
+
+  usecase "Валидировать данные"               as UC_Validate
+  usecase "Рассчитать итоговую стоимость"     as UC_CalcCost
+  usecase "Подтвердить удаление"              as UC_Confirm
+  usecase "Рассчитать остаток до ТО"          as UC_CalcRemainder
+}
+
+U --> UC_AddCar
+U --> UC_PickCar
+U --> UC_DelCar
+U --> UC_AddFuel
+U --> UC_AddMaint
+U --> UC_History
+U --> UC_EditRec
+U --> UC_DelRec
+U --> UC_Mileage
+U --> UC_Remind
+U --> UC_Stats
+U --> UC_Export
+
+UC_AddFuel  ..> UC_Validate      : <<include>>
+UC_AddMaint ..> UC_Validate      : <<include>>
+UC_EditRec  ..> UC_Validate      : <<include>>
+UC_AddFuel  ..> UC_CalcCost      : <<include>>
+UC_DelRec   ..> UC_Confirm       : <<include>>
+UC_DelCar   ..> UC_Confirm       : <<include>>
+UC_Remind   ..> UC_CalcRemainder : <<include>>
+UC_Export   ..> UC_History       : <<include>>
+@enduml
